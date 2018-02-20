@@ -1,1 +1,2 @@
-# board-zerynth-adafruit_huzzah32
+# adafruit_huzzah32
+

@@ -2,7 +2,7 @@
 
 ////LAYOUT: adafruit_huzzah32
 ////PERIPHERALS: SERIAL0 SERIAL1 SERIAL2 ADC0 DAC0 DAC1 PWMD0 SPI0 SPI1 I2C0 I2C1 I2C2 SD0 SD1 RTC0
-////CDEFINES: ESP32_VHAL ESP32_ETH_PHY_LAN8720
+////CDEFINES: ESP32_VHAL ESP32_ETH_PHY_LAN8720 HAS_BUILTIN_MBEDTLS
 
 const PinInfo const _vhalpinmap[] STORED = {
     /* D0   */ MAKE_PIN(PA, 0,  HAS_EXT),                      //NOT EXPOSED
@@ -17,10 +17,10 @@ const PinInfo const _vhalpinmap[] STORED = {
     /* D9   */ MAKE_PIN(PA, 9,  HAS_EXT),                      //NOT USED
     /* D10  */ MAKE_PIN(PA, 10,  HAS_EXT),                     //NOT USED
     /* D11  */ MAKE_PIN(PA, 11,  HAS_EXT),                     //NOT USED
-    /* D12  */ MAKE_PIN(PA, 12,  HAS_EXT | HAS_SPI),           //HSPI_MISO
-    /* D13  */ MAKE_PIN(PA, 13,  HAS_EXT),                     //LED0
-    /* D14  */ MAKE_PIN(PA, 14,  HAS_EXT | HAS_SPI),           //HSPI_CLK
-    /* D15  */ MAKE_PIN(PA, 15,  HAS_EXT | HAS_SPI),           //HSPI_MOSI
+    /* D12  */ MAKE_PIN(PA, 12,  HAS_EXT | HAS_SPI),           //HSPI_MISO, A11
+    /* D13  */ MAKE_PIN(PA, 13,  HAS_EXT),                     //LED0, A12
+    /* D14  */ MAKE_PIN(PA, 14,  HAS_EXT | HAS_SPI),           //HSPI_CLK, A6
+    /* D15  */ MAKE_PIN(PA, 15,  HAS_EXT | HAS_SPI),           //HSPI_MOSI, A8
     /* D16  */ MAKE_PIN(PA, 16,  HAS_EXT | HAS_SER),           //RX1
     /* D17  */ MAKE_PIN(PA, 17,  HAS_EXT | HAS_SER),           //TX1
     /* D18  */ MAKE_PIN(PA, 18,  HAS_EXT | HAS_SPI),           //VSPI_MOSI
@@ -32,13 +32,13 @@ const PinInfo const _vhalpinmap[] STORED = {
     /* D24  */ MAKE_PIN(PA, 24,  HAS_EXT),                     //NOT EXPOSED  
     /* D25  */ MAKE_PIN(PA, 25,  HAS_EXT | HAS_I2C | HAS_DAC), //SDA1
     /* D26  */ MAKE_PIN(PA, 26,  HAS_EXT | HAS_I2C | HAS_DAC), //SCL1
-    /* D27  */ MAKE_PIN(PA, 27,  HAS_EXT),                     //TX2
+    /* D27  */ MAKE_PIN(PA, 27,  HAS_EXT),                     //TX2, A10
     /* D28  */ MAKE_PIN(PA, 28,  HAS_EXT),                     //NOT EXPOSED
     /* D29  */ MAKE_PIN(PA, 29,  HAS_EXT),                     //NOT EXPOSED
     /* D30  */ MAKE_PIN(PA, 30,  HAS_EXT),                     //NOT EXPOSED
     /* D31  */ MAKE_PIN(PA, 31,  HAS_EXT),                     //NOT EXPOSED
-    /* D32  */ MAKE_PIN(PA, 32,  HAS_EXT | HAS_ADC),           //A5
-    /* D33  */ MAKE_PIN(PA, 33,  HAS_EXT | HAS_ADC),           //A6, RX2
+    /* D32  */ MAKE_PIN(PA, 32,  HAS_EXT | HAS_ADC),           //A7
+    /* D33  */ MAKE_PIN(PA, 33,  HAS_EXT | HAS_ADC),           //A9, RX2
     /* D34  */ MAKE_PIN(PA, 34,  HAS_EXT | HAS_ADC),           //A2
     /* D35  */ MAKE_PIN(PA, 35,  HAS_EXT | HAS_ADC),           //VBAT SENSE
     /* D36  */ MAKE_PIN(PA, 36,  HAS_EXT | HAS_ADC),           //A4
@@ -50,14 +50,24 @@ const PinInfo const _vhalpinmap[] STORED = {
 
 
 const PinClass const _analogclass[] STORED = {
-    /* A0 */ MAKE_PIN_CLASS(37, 1 , 0, 0), 
-    /* A1 */ MAKE_PIN_CLASS(38, 2 , 0, 0),
+    /* A0 */ MAKE_PIN_CLASS(26, 9 , 1, 0), 
+    /* A1 */ MAKE_PIN_CLASS(25, 8 , 1, 0), 
     /* A2 */ MAKE_PIN_CLASS(34, 6 , 0, 0),
     /* A3 */ MAKE_PIN_CLASS(39, 3 , 0, 0),
     /* A4 */ MAKE_PIN_CLASS(36, 0 , 0, 0),
-    /* A5 */ MAKE_PIN_CLASS(32, 4 , 0, 0),
-    /* A6 */ MAKE_PIN_CLASS(33, 5 , 0, 0),
-    /* A7 */ MAKE_PIN_CLASS(35, 7 , 0, 0),
+    /* A5 */ MAKE_PIN_CLASS(4, 0 , 1, 0), 
+    /* A6 */ MAKE_PIN_CLASS(14, 6 , 1, 0), 
+    /* A7 */ MAKE_PIN_CLASS(32, 4 , 0, 0),
+    /* A8 */ MAKE_PIN_CLASS(15, 3 , 1, 0), 
+    /* A9 */ MAKE_PIN_CLASS(33, 5 , 0, 0),
+    /* A10*/ MAKE_PIN_CLASS(27, 7 , 1, 0), 
+    /* A11*/ MAKE_PIN_CLASS(12, 5 , 1, 0), 
+    /* A12*/ MAKE_PIN_CLASS(13, 4 , 1, 0), 
+    /* A13*/ MAKE_PIN_CLASS(35, 7 , 0, 0), // VBAT
+    /* A14*/ MAKE_PIN_CLASS(37, 1 , 0, 0), // NOT EXPOSED
+    /* A15*/ MAKE_PIN_CLASS(38, 2 , 0, 0), // NOT EXPOSED
+    /* A16*/ MAKE_PIN_CLASS(0, 1 , 1, 0),  // NOT EXPOSED
+    /* A17*/ MAKE_PIN_CLASS(2, 2 , 1, 0),  // NOT EXPOSED
 };
 
 const PinClass const _spiclass[] STORED = {

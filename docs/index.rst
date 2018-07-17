@@ -15,7 +15,7 @@ Adafruit Huzza32 contains a dual-core ESP32 chip, 4 MB of SPI Flash, tuned anten
 Pin Mapping
 ***********
 
-.. figure:: /custom/img/adafruithuzzah32pin.png
+.. figure:: /custom/img/adafruithuzzah32pin.jpg
    :align: center
    :figwidth: 100% 
    :alt: Adafruit Huzzah32

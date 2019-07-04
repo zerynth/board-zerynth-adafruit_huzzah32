@@ -1,0 +1,14 @@
+---
+description: Add support for Adafruit Huzzah32
+fullname: board.zerynth.adafruit_huzzah32
+info:
+    board: Adafruit Huzzah32
+    chip_manufacturer: Espressif
+    device: esp32
+    family_type: Xtensa lx6
+keywords:
+- adafruit
+- esp32
+- board
+title: Adafruit Huzzah32 Support Package
+...
